@@ -1,0 +1,617 @@
+[W 2025-01-31 17:02:14.373 ServerApp] A `_jupyter_server_extension_points` function was not found in jupyter_lsp. Instead, a `_jupyter_server_extension_paths` function was found and will be used for now. This function name will be deprecated in future releases of Jupyter Server.
+[W 2025-01-31 17:02:14.392 ServerApp] A `_jupyter_server_extension_points` function was not found in notebook_shim. Instead, a `_jupyter_server_extension_paths` function was found and will be used for now. This function name will be deprecated in future releases of Jupyter Server.
+[I 2025-01-31 17:02:14.729 ServerApp] Extension package panel.io.jupyter_server_extension took 0.3366s to import
+[I 2025-01-31 17:02:14.729 ServerApp] jupyter_lsp | extension was successfully linked.
+[I 2025-01-31 17:02:14.730 ServerApp] jupyter_server_terminals | extension was successfully linked.
+[I 2025-01-31 17:02:14.732 ServerApp] jupyterlab | extension was successfully linked.
+[I 2025-01-31 17:02:14.734 ServerApp] notebook | extension was successfully linked.
+[I 2025-01-31 17:02:14.844 ServerApp] notebook_shim | extension was successfully linked.
+[I 2025-01-31 17:02:14.844 ServerApp] panel.io.jupyter_server_extension | extension was successfully linked.
+[I 2025-01-31 17:02:14.850 ServerApp] notebook_shim | extension was successfully loaded.
+[I 2025-01-31 17:02:14.851 ServerApp] jupyter_lsp | extension was successfully loaded.
+[I 2025-01-31 17:02:14.852 ServerApp] jupyter_server_terminals | extension was successfully loaded.
+[I 2025-01-31 17:02:14.852 LabApp] JupyterLab extension loaded from /home/raisul/anaconda3/lib/python3.12/site-packages/jupyterlab
+[I 2025-01-31 17:02:14.852 LabApp] JupyterLab application directory is /home/raisul/anaconda3/share/jupyter/lab
+[I 2025-01-31 17:02:14.853 LabApp] Extension Manager is 'pypi'.
+[I 2025-01-31 17:02:14.854 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2025-01-31 17:02:14.855 ServerApp] notebook | extension was successfully loaded.
+[I 2025-01-31 17:02:14.855 ServerApp] panel.io.jupyter_server_extension | extension was successfully loaded.
+[I 2025-01-31 17:02:14.855 ServerApp] Serving notebooks from local directory: /home/raisul/probabilistic_disassembly
+[I 2025-01-31 17:02:14.855 ServerApp] Jupyter Server 2.14.1 is running at:
+[I 2025-01-31 17:02:14.855 ServerApp] http://localhost:8888/tree?token=695c32aba81ee9203dcc11f5772bf28984405c7cea74c147
+[I 2025-01-31 17:02:14.855 ServerApp]     http://127.0.0.1:8888/tree?token=695c32aba81ee9203dcc11f5772bf28984405c7cea74c147
+[I 2025-01-31 17:02:14.855 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 2025-01-31 17:02:14.857 ServerApp] 
+    
+    To access the server, open this file in a browser:
+        file:///home/raisul/.local/share/jupyter/runtime/jpserver-230302-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8888/tree?token=695c32aba81ee9203dcc11f5772bf28984405c7cea74c147
+        http://127.0.0.1:8888/tree?token=695c32aba81ee9203dcc11f5772bf28984405c7cea74c147
+[I 2025-01-31 17:02:14.871 ServerApp] Skipped non-installed server(s): bash-language-server, dockerfile-language-server-nodejs, javascript-typescript-langserver, jedi-language-server, julia-language-server, pyright, python-language-server, r-languageserver, sql-language-server, texlab, typescript-language-server, unified-language-server, vscode-css-languageserver-bin, vscode-html-languageserver-bin, vscode-json-languageserver-bin, yaml-language-server
+[I 2025-01-31 17:03:04.373 ServerApp] 302 GET / (@127.0.0.1) 0.29ms
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+[I 2025-01-31 17:03:14.854 ServerApp] Kernel started: b0ef3312-a92a-4b13-8f42-4ddf71cd2fa3
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+[I 2025-01-31 17:03:15.288 ServerApp] Connecting to kernel b0ef3312-a92a-4b13-8f42-4ddf71cd2fa3.
+[I 2025-01-31 17:05:14.903 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 17:49:11.256 ServerApp] Kernel started: 3317ac9b-7595-485a-a5c9-f5ca118a29ca
+[I 2025-01-31 17:49:11.673 ServerApp] Connecting to kernel 3317ac9b-7595-485a-a5c9-f5ca118a29ca.
+[I 2025-01-31 17:50:54.757 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 17:54:54.904 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:00:55.036 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:13:06.229 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:15:06.388 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:17:06.606 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:17:13.732 ServerApp] Saving file at /code/universal_disassembly.ipynb
+[I 2025-01-31 18:19:06.825 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:25:06.977 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:31:09.878 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:33:10.810 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:35:06.391 ServerApp] Kernel restarted: b0ef3312-a92a-4b13-8f42-4ddf71cd2fa3
+[I 2025-01-31 18:35:06.440 ServerApp] Starting buffering for b0ef3312-a92a-4b13-8f42-4ddf71cd2fa3:9023c395-5259-475c-9f68-8ca2b3dcc339
+[I 2025-01-31 18:35:06.584 ServerApp] Connecting to kernel b0ef3312-a92a-4b13-8f42-4ddf71cd2fa3.
+[I 2025-01-31 18:35:06.584 ServerApp] Restoring connection for b0ef3312-a92a-4b13-8f42-4ddf71cd2fa3:9023c395-5259-475c-9f68-8ca2b3dcc339
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+[I 2025-01-31 18:35:11.027 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:35:15.643 ServerApp] Kernel started: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-01-31 18:35:15.643 ServerApp] Kernel shutdown: b0ef3312-a92a-4b13-8f42-4ddf71cd2fa3
+[I 2025-01-31 18:35:16.081 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-01-31 18:35:19.398 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-01-31 18:35:19.443 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:9023c395-5259-475c-9f68-8ca2b3dcc339
+[I 2025-01-31 18:35:19.613 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-01-31 18:35:19.614 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:9023c395-5259-475c-9f68-8ca2b3dcc339
+[I 2025-01-31 18:37:11.862 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:41:12.849 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:43:13.078 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:45:13.439 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:47:13.890 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:53:14.891 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:55:15.263 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 18:57:15.639 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 19:01:15.957 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 19:03:16.300 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 19:05:16.925 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 19:07:17.086 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 19:09:17.920 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 19:11:18.239 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 19:15:18.476 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 21:57:18.757 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 22:05:21.821 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 22:07:22.094 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 22:09:22.415 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 22:19:22.642 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 22:58:41.555 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-01-31 22:58:41.598 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:9023c395-5259-475c-9f68-8ca2b3dcc339
+[I 2025-01-31 22:58:41.812 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-01-31 22:58:41.812 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:9023c395-5259-475c-9f68-8ca2b3dcc339
+[I 2025-01-31 22:58:41.814 ServerApp] Replaying 3 buffered messages
+[I 2025-01-31 22:59:17.703 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-01-31 22:59:17.750 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:9023c395-5259-475c-9f68-8ca2b3dcc339
+[I 2025-01-31 22:59:17.922 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-01-31 22:59:17.922 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:9023c395-5259-475c-9f68-8ca2b3dcc339
+[I 2025-01-31 22:59:17.925 ServerApp] Replaying 3 buffered messages
+[W 2025-01-31 22:59:22.089 ServerApp] IOPub data rate exceeded.
+    The Jupyter server will temporarily stop sending output
+    to the client in order to avoid crashing it.
+    To change this limit, set the config variable
+    `--ServerApp.iopub_data_rate_limit`.
+    
+    Current values:
+    ServerApp.iopub_data_rate_limit=1000000.0 (bytes/sec)
+    ServerApp.rate_limit_window=3.0 (secs)
+    
+[I 2025-01-31 22:59:22.987 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 23:01:23.278 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 23:05:23.922 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 23:07:24.294 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-01-31 23:09:24.567 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 00:02:02.392 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 00:10:03.894 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 00:12:04.055 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 00:18:04.212 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 00:20:04.928 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 00:26:06.767 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 00:28:06.984 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 00:30:07.187 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 00:46:07.322 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 00:48:07.523 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 00:50:07.743 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 00:56:07.909 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 00:58:08.076 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 01:12:08.236 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 01:14:08.412 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 01:16:08.582 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 01:20:08.767 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 01:22:08.987 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 01:24:09.152 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[W 2025-02-01 01:25:09.295 ServerApp] IOPub data rate exceeded.
+    The Jupyter server will temporarily stop sending output
+    to the client in order to avoid crashing it.
+    To change this limit, set the config variable
+    `--ServerApp.iopub_data_rate_limit`.
+    
+    Current values:
+    ServerApp.iopub_data_rate_limit=1000000.0 (bytes/sec)
+    ServerApp.rate_limit_window=3.0 (secs)
+    
+[I 2025-02-01 01:26:09.370 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[W 2025-02-01 01:27:36.351 ServerApp] IOPub data rate exceeded.
+    The Jupyter server will temporarily stop sending output
+    to the client in order to avoid crashing it.
+    To change this limit, set the config variable
+    `--ServerApp.iopub_data_rate_limit`.
+    
+    Current values:
+    ServerApp.iopub_data_rate_limit=1000000.0 (bytes/sec)
+    ServerApp.rate_limit_window=3.0 (secs)
+    
+[I 2025-02-01 01:28:09.651 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 01:38:13.855 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 01:40:14.269 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 01:46:14.611 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 01:52:14.894 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 02:00:15.210 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 02:02:15.532 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 02:04:15.774 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 02:08:16.085 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 02:10:16.353 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[W 2025-02-01 02:11:19.088 ServerApp] IOPub data rate exceeded.
+    The Jupyter server will temporarily stop sending output
+    to the client in order to avoid crashing it.
+    To change this limit, set the config variable
+    `--ServerApp.iopub_data_rate_limit`.
+    
+    Current values:
+    ServerApp.iopub_data_rate_limit=1000000.0 (bytes/sec)
+    ServerApp.rate_limit_window=3.0 (secs)
+    
+[W 2025-02-01 02:11:19.128 ServerApp] iopub messages resumed
+[I 2025-02-01 02:12:16.728 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 02:14:17.870 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[W 2025-02-01 02:21:50.364 ServerApp] IOPub data rate exceeded.
+    The Jupyter server will temporarily stop sending output
+    to the client in order to avoid crashing it.
+    To change this limit, set the config variable
+    `--ServerApp.iopub_data_rate_limit`.
+    
+    Current values:
+    ServerApp.iopub_data_rate_limit=1000000.0 (bytes/sec)
+    ServerApp.rate_limit_window=3.0 (secs)
+    
+[W 2025-02-01 02:21:50.364 ServerApp] iopub messages resumed
+[W 2025-02-01 02:21:50.744 ServerApp] IOPub data rate exceeded.
+    The Jupyter server will temporarily stop sending output
+    to the client in order to avoid crashing it.
+    To change this limit, set the config variable
+    `--ServerApp.iopub_data_rate_limit`.
+    
+    Current values:
+    ServerApp.iopub_data_rate_limit=1000000.0 (bytes/sec)
+    ServerApp.rate_limit_window=3.0 (secs)
+    
+[W 2025-02-01 02:21:50.747 ServerApp] iopub messages resumed
+[I 2025-02-01 02:21:58.270 ServerApp] Kernel interrupted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-01 02:22:20.901 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 02:24:21.897 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 02:32:25.884 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 02:34:26.914 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-01 02:36:27.915 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[W 2025-02-01 02:49:11.674 ServerApp] WebSocket ping timeout after 119952 ms.
+[I 2025-02-01 02:49:16.677 ServerApp] Starting buffering for 3317ac9b-7595-485a-a5c9-f5ca118a29ca:f6adfe9d-80e9-4a94-a82c-55826d19390d
+[W 2025-02-01 02:49:17.924 ServerApp] WebSocket ping timeout after 119952 ms.
+[I 2025-02-01 02:49:22.927 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:9023c395-5259-475c-9f68-8ca2b3dcc339
+[I 2025-02-03 21:57:17.914 ServerApp] Connecting to kernel 3317ac9b-7595-485a-a5c9-f5ca118a29ca.
+[I 2025-02-03 21:57:17.914 ServerApp] Restoring connection for 3317ac9b-7595-485a-a5c9-f5ca118a29ca:f6adfe9d-80e9-4a94-a82c-55826d19390d
+[I 2025-02-03 21:57:31.943 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-03 21:57:31.943 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:9023c395-5259-475c-9f68-8ca2b3dcc339
+[I 2025-02-03 21:57:33.127 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-03 22:00:07.506 ServerApp] 302 GET / (@127.0.0.1) 0.27ms
+[I 2025-02-03 22:01:13.798 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[W 2025-02-03 22:01:47.915 ServerApp] WebSocket ping timeout after 119951 ms.
+[I 2025-02-03 22:01:52.918 ServerApp] Starting buffering for 3317ac9b-7595-485a-a5c9-f5ca118a29ca:f6adfe9d-80e9-4a94-a82c-55826d19390d
+[W 2025-02-03 22:02:01.943 ServerApp] WebSocket ping timeout after 119945 ms.
+[I 2025-02-03 22:03:13.361 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-03 22:05:13.841 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-03 22:11:14.316 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-03 22:25:14.552 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-03 22:45:13.799 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-03 22:45:13.898 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:75b24316-af7d-4611-8723-07650042a7a0
+[I 2025-02-03 22:45:14.078 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-03 22:45:14.078 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:75b24316-af7d-4611-8723-07650042a7a0
+[I 2025-02-03 22:45:14.081 ServerApp] Replaying 1 buffered messages
+[I 2025-02-03 22:45:19.339 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-03 23:13:16.984 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-03 23:13:17.112 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:75b24316-af7d-4611-8723-07650042a7a0
+[I 2025-02-03 23:13:17.478 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-03 23:13:17.478 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:75b24316-af7d-4611-8723-07650042a7a0
+[I 2025-02-03 23:13:17.481 ServerApp] Replaying 2 buffered messages
+[I 2025-02-03 23:13:19.488 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-03 23:15:19.891 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-03 23:27:20.262 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-03 23:35:20.626 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-03 23:41:20.936 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-03 23:43:21.262 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[W 2025-02-04 04:19:17.480 ServerApp] WebSocket ping timeout after 119952 ms.
+[I 2025-02-04 04:19:22.483 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:75b24316-af7d-4611-8723-07650042a7a0
+[I 2025-02-04 13:56:23.997 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-04 13:56:23.997 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:75b24316-af7d-4611-8723-07650042a7a0
+[I 2025-02-04 13:57:32.886 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[W 2025-02-04 13:59:23.998 ServerApp] WebSocket ping timeout after 119956 ms.
+[I 2025-02-04 20:57:38.846 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:137daf92-515c-44ac-a3a6-4512b325ab59
+[I 2025-02-05 12:31:30.835 ServerApp] 302 GET /?token=[secret] (@127.0.0.1) 0.27ms
+[I 2025-02-05 12:31:38.701 ServerApp] Connecting to kernel 3317ac9b-7595-485a-a5c9-f5ca118a29ca.
+[I 2025-02-05 12:31:45.668 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-05 12:34:09.607 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 12:34:15.977 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:8fbf27ff-16c6-4802-8dbd-a80979ec0a6e
+[I 2025-02-05 12:34:29.434 ServerApp] Copying data_scripts/ml_data.ipynb to /data_scripts
+[I 2025-02-05 12:34:42.002 ServerApp] Kernel started: d09fa0d7-fc96-4173-a3fc-a41c232fa8b9
+[I 2025-02-05 12:34:42.273 ServerApp] Connecting to kernel d09fa0d7-fc96-4173-a3fc-a41c232fa8b9.
+[I 2025-02-05 12:34:46.252 ServerApp] Kernel restarted: d09fa0d7-fc96-4173-a3fc-a41c232fa8b9
+[I 2025-02-05 12:34:46.255 ServerApp] Starting buffering for d09fa0d7-fc96-4173-a3fc-a41c232fa8b9:4c4440dc-efb3-4b43-a2b1-0dd49c86b5de
+[I 2025-02-05 12:34:46.257 ServerApp] Connecting to kernel d09fa0d7-fc96-4173-a3fc-a41c232fa8b9.
+[I 2025-02-05 12:34:46.257 ServerApp] Restoring connection for d09fa0d7-fc96-4173-a3fc-a41c232fa8b9:4c4440dc-efb3-4b43-a2b1-0dd49c86b5de
+[I 2025-02-05 12:36:41.332 ServerApp] Saving file at /data_scripts/ml_data-presentation.ipynb
+[W 2025-02-05 12:37:28.854 ServerApp] IOPub data rate exceeded.
+    The Jupyter server will temporarily stop sending output
+    to the client in order to avoid crashing it.
+    To change this limit, set the config variable
+    `--ServerApp.iopub_data_rate_limit`.
+    
+    Current values:
+    ServerApp.iopub_data_rate_limit=1000000.0 (bytes/sec)
+    ServerApp.rate_limit_window=3.0 (secs)
+    
+[I 2025-02-05 12:38:41.369 ServerApp] Saving file at /data_scripts/ml_data-presentation.ipynb
+[I 2025-02-05 12:40:41.431 ServerApp] Saving file at /data_scripts/ml_data-presentation.ipynb
+[I 2025-02-05 12:46:41.528 ServerApp] Saving file at /data_scripts/ml_data-presentation.ipynb
+[I 2025-02-05 18:17:41.199 ServerApp] 302 GET / (@127.0.0.1) 0.29ms
+[I 2025-02-05 18:17:56.907 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-05 18:18:01.536 ServerApp] Kernel shutdown: d09fa0d7-fc96-4173-a3fc-a41c232fa8b9
+[I 2025-02-05 18:18:08.135 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[W 2025-02-05 18:19:38.136 ServerApp] WebSocket ping timeout after 90000 ms.
+[I 2025-02-05 18:44:37.638 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 18:45:51.523 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-05 18:46:37.961 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 18:49:23.453 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-05 18:50:38.175 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[W 2025-02-05 18:50:51.525 ServerApp] WebSocket ping timeout after 119948 ms.
+[I 2025-02-05 18:51:01.955 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-05 18:51:43.364 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-05 18:51:56.233 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 18:52:01.304 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[W 2025-02-05 18:52:53.454 ServerApp] WebSocket ping timeout after 119953 ms.
+[W 2025-02-05 18:53:13.366 ServerApp] WebSocket ping timeout after 90001 ms.
+[W 2025-02-05 18:53:31.957 ServerApp] WebSocket ping timeout after 119952 ms.
+[I 2025-02-05 19:17:38.239 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 22:11:38.040 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 22:13:38.488 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 22:17:39.132 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 22:27:41.584 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 22:29:41.921 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 22:37:43.525 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 22:57:44.547 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 22:59:44.974 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:01:45.222 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:03:45.437 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:05:46.427 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:09:47.421 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:11:47.591 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:13:47.766 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:17:47.985 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:23:48.131 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:24:46.956 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-05 23:24:47.212 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-05 23:25:11.389 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-05 23:25:11.642 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-05 23:25:48.353 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:36:25.039 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-05 23:36:25.290 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-05 23:38:16.586 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:39:56.743 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-05 23:39:56.974 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-05 23:40:16.793 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:42:16.922 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:43:27.204 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-05 23:43:27.387 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-05 23:44:17.027 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:44:35.885 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:44:37.892 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-05 23:44:38.123 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-05 23:45:44.811 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-05 23:45:45.078 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-05 23:45:55.028 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-05 23:45:55.288 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-05 23:46:36.075 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:48:36.205 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:50:36.337 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:52:37.467 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:54:38.371 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:56:39.432 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-05 23:58:40.479 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:00:41.409 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:02:42.369 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:04:43.383 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:06:44.414 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:08:45.454 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:10:46.388 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:12:47.428 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:14:48.376 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:16:49.398 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:18:50.435 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:20:51.655 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:22:52.481 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:24:53.369 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:26:54.379 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:28:55.382 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:30:56.495 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 00:32:57.389 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[W 2025-02-06 00:35:25.290 ServerApp] WebSocket ping timeout after 119952 ms.
+[W 2025-02-06 00:35:31.306 ServerApp] WebSocket ping timeout after 119952 ms.
+[W 2025-02-06 00:35:32.292 ServerApp] 
+[I 2025-02-06 00:35:36.308 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:5420aebf-23e5-4bbc-9655-3c72f358a338
+[I 2025-02-06 11:16:23.909 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-06 11:16:23.909 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:5420aebf-23e5-4bbc-9655-3c72f358a338
+[I 2025-02-06 11:16:23.912 ServerApp] Replaying 183 buffered messages
+[I 2025-02-06 11:16:29.818 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-06 11:17:34.852 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:21:38.179 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-06 11:21:38.365 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-06 11:23:35.732 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:25:35.931 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:27:36.042 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:29:36.160 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:31:36.462 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:33:36.564 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:35:36.812 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:37:37.037 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:39:37.253 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:41:37.470 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:43:37.787 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:45:37.926 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:47:38.124 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:49:38.247 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:51:38.390 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:53:38.494 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:55:38.603 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:57:38.800 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 11:59:38.916 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:01:39.018 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:03:39.151 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:05:39.255 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:07:39.361 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:09:39.568 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:11:39.725 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:13:39.939 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:15:40.052 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:17:40.185 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:19:40.317 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:21:40.431 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:23:40.619 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:25:40.839 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:27:40.982 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:35:41.114 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:37:41.332 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:39:41.475 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:41:41.628 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:43:41.772 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:45:42.014 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:47:42.215 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:51:42.331 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:53:42.456 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:55:42.573 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:57:42.693 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 12:59:42.889 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 13:01:43.011 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 13:03:43.245 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 13:05:43.456 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 13:07:43.679 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 13:09:43.789 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 13:11:44.012 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 13:13:44.127 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 13:15:44.246 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-06 13:17:44.424 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[W 2025-02-06 21:12:38.367 ServerApp] WebSocket ping timeout after 119952 ms.
+[W 2025-02-07 02:50:53.911 ServerApp] WebSocket ping timeout after 119953 ms.
+[I 2025-02-07 02:50:58.914 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:5420aebf-23e5-4bbc-9655-3c72f358a338
+[I 2025-02-07 12:02:38.098 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-07 12:02:38.098 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:5420aebf-23e5-4bbc-9655-3c72f358a338
+[W 2025-02-07 14:16:38.102 ServerApp] WebSocket ping timeout after 119953 ms.
+[I 2025-02-07 14:16:43.105 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:5420aebf-23e5-4bbc-9655-3c72f358a338
+[I 2025-02-07 14:22:31.827 ServerApp] 302 GET / (@127.0.0.1) 0.25ms
+[I 2025-02-07 14:22:57.071 ServerApp] 302 GET /?token=[secret] (@127.0.0.1) 0.28ms
+[I 2025-02-07 14:23:04.289 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-07 14:30:02.614 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-07 14:30:02.662 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 14:30:02.833 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-07 14:30:02.833 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 14:31:06.102 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 14:35:06.234 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 14:37:06.510 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 14:41:06.680 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 14:47:06.923 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 14:53:07.072 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 14:55:07.293 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 14:55:27.015 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-07 14:55:27.059 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 14:55:27.273 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-07 14:55:27.273 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 14:57:07.598 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 15:09:53.631 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-07 15:09:53.680 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 15:09:53.852 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-07 15:09:53.852 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 15:09:53.855 ServerApp] Replaying 1 buffered messages
+[I 2025-02-07 15:11:07.852 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 15:13:08.021 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 15:35:08.242 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 15:37:08.548 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 16:40:31.126 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 17:58:31.142 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 18:00:31.319 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 18:01:52.521 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-07 18:01:52.568 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 18:01:52.779 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-07 18:01:52.779 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 18:02:31.569 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 18:04:31.885 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 18:07:39.872 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-07 18:07:39.917 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 18:07:40.051 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-07 18:07:40.051 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 18:08:32.219 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 18:12:32.497 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 18:14:32.749 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 18:16:32.963 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 18:17:26.700 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-07 18:17:26.747 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 18:17:26.893 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-07 18:17:26.893 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 18:18:33.454 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 18:18:48.343 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-07 18:18:48.390 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 18:18:48.604 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-07 18:18:48.604 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 18:20:33.745 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-07 18:20:51.828 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-07 18:20:51.875 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 18:20:52.049 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-07 18:20:52.049 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 18:22:01.576 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-07 18:22:01.621 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 18:22:01.751 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-07 18:22:01.751 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 18:22:08.586 ServerApp] Kernel interrupted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-07 18:22:17.235 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-07 18:22:17.283 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 18:22:17.441 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-07 18:22:17.441 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-07 18:22:33.963 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[W 2025-02-08 06:05:47.442 ServerApp] WebSocket ping timeout after 119952 ms.
+[I 2025-02-08 06:05:52.445 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:5a945c42-3d40-4193-b940-d5d6ebae5e61
+[I 2025-02-10 12:06:51.290 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-10 12:08:51.056 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-10 12:10:51.085 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-10 12:11:53.066 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-10 12:13:45.833 ServerApp] Kernel restarted: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-10 12:13:45.836 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:64bafddd-d3e5-41a4-bf42-98d9f5a602a2
+[I 2025-02-10 12:13:45.837 ServerApp] Connecting to kernel d7642603-17e8-445b-87e1-38c26b8a5259.
+[I 2025-02-10 12:13:45.837 ServerApp] Restoring connection for d7642603-17e8-445b-87e1-38c26b8a5259:64bafddd-d3e5-41a4-bf42-98d9f5a602a2
+[I 2025-02-10 12:13:53.086 ServerApp] Saving file at /data_scripts/ml_data.ipynb
+[I 2025-02-10 12:14:07.942 ServerApp] Copying data_scripts/ml_data.ipynb to /data_scripts
+[I 2025-02-10 12:14:19.692 ServerApp] Starting buffering for d7642603-17e8-445b-87e1-38c26b8a5259:64bafddd-d3e5-41a4-bf42-98d9f5a602a2
+[I 2025-02-10 12:14:19.931 ServerApp] Kernel started: 8a75c9fa-d491-472e-aa73-3c7c5892c804
+[I 2025-02-10 12:14:20.241 ServerApp] Connecting to kernel 8a75c9fa-d491-472e-aa73-3c7c5892c804.
+[I 2025-02-10 12:14:20.755 ServerApp] Starting buffering for 3317ac9b-7595-485a-a5c9-f5ca118a29ca:db7f028d-4c88-45e5-b59d-2f2a4142d7c9
+[I 2025-02-10 12:20:22.830 ServerApp] Saving file at /data_scripts/ml_data_PE.ipynb
+[I 2025-02-10 12:22:22.899 ServerApp] Saving file at /data_scripts/ml_data_PE.ipynb
+[I 2025-02-10 12:24:23.830 ServerApp] Saving file at /data_scripts/ml_data_PE.ipynb
+[I 2025-02-10 12:26:23.897 ServerApp] Saving file at /data_scripts/ml_data_PE.ipynb
+[I 2025-02-10 12:27:23.432 ServerApp] Kernel restarted: 8a75c9fa-d491-472e-aa73-3c7c5892c804
+[I 2025-02-10 12:27:23.435 ServerApp] Starting buffering for 8a75c9fa-d491-472e-aa73-3c7c5892c804:2a293822-bf02-4982-9cae-c4d5e8999330
+[I 2025-02-10 12:27:23.437 ServerApp] Connecting to kernel 8a75c9fa-d491-472e-aa73-3c7c5892c804.
+[I 2025-02-10 12:27:23.437 ServerApp] Restoring connection for 8a75c9fa-d491-472e-aa73-3c7c5892c804:2a293822-bf02-4982-9cae-c4d5e8999330
+[I 2025-02-10 12:28:23.926 ServerApp] Saving file at /data_scripts/ml_data_PE.ipynb
+[I 2025-02-10 12:32:25.830 ServerApp] Saving file at /data_scripts/ml_data_PE.ipynb
+[I 2025-02-10 12:33:17.216 ServerApp] Kernel restarted: 8a75c9fa-d491-472e-aa73-3c7c5892c804
+[I 2025-02-10 12:33:17.219 ServerApp] Starting buffering for 8a75c9fa-d491-472e-aa73-3c7c5892c804:2a293822-bf02-4982-9cae-c4d5e8999330
+[I 2025-02-10 12:33:17.220 ServerApp] Connecting to kernel 8a75c9fa-d491-472e-aa73-3c7c5892c804.
+[I 2025-02-10 12:33:17.220 ServerApp] Restoring connection for 8a75c9fa-d491-472e-aa73-3c7c5892c804:2a293822-bf02-4982-9cae-c4d5e8999330
+[I 2025-02-10 12:34:20.990 ServerApp] Kernel restarted: 8a75c9fa-d491-472e-aa73-3c7c5892c804
+[I 2025-02-10 12:34:20.994 ServerApp] Starting buffering for 8a75c9fa-d491-472e-aa73-3c7c5892c804:2a293822-bf02-4982-9cae-c4d5e8999330
+[I 2025-02-10 12:34:20.995 ServerApp] Connecting to kernel 8a75c9fa-d491-472e-aa73-3c7c5892c804.
+[I 2025-02-10 12:34:20.995 ServerApp] Restoring connection for 8a75c9fa-d491-472e-aa73-3c7c5892c804:2a293822-bf02-4982-9cae-c4d5e8999330
+[I 2025-02-10 12:34:25.896 ServerApp] Saving file at /data_scripts/ml_data_PE.ipynb
+[I 2025-02-10 12:35:06.008 ServerApp] Kernel interrupted: 8a75c9fa-d491-472e-aa73-3c7c5892c804
+[I 2025-02-10 12:35:27.704 ServerApp] Kernel restarted: 8a75c9fa-d491-472e-aa73-3c7c5892c804
+[I 2025-02-10 12:35:27.706 ServerApp] Starting buffering for 8a75c9fa-d491-472e-aa73-3c7c5892c804:2a293822-bf02-4982-9cae-c4d5e8999330
+[I 2025-02-10 12:35:27.708 ServerApp] Connecting to kernel 8a75c9fa-d491-472e-aa73-3c7c5892c804.
+[I 2025-02-10 12:35:27.708 ServerApp] Restoring connection for 8a75c9fa-d491-472e-aa73-3c7c5892c804:2a293822-bf02-4982-9cae-c4d5e8999330
+[I 2025-02-10 12:36:26.829 ServerApp] Saving file at /data_scripts/ml_data_PE.ipynb
+[I 2025-02-10 12:44:27.537 ServerApp] Kernel restarted: 8a75c9fa-d491-472e-aa73-3c7c5892c804
+[I 2025-02-10 12:44:27.540 ServerApp] Starting buffering for 8a75c9fa-d491-472e-aa73-3c7c5892c804:2a293822-bf02-4982-9cae-c4d5e8999330
+[I 2025-02-10 12:44:27.541 ServerApp] Connecting to kernel 8a75c9fa-d491-472e-aa73-3c7c5892c804.
+[I 2025-02-10 12:44:27.541 ServerApp] Restoring connection for 8a75c9fa-d491-472e-aa73-3c7c5892c804:2a293822-bf02-4982-9cae-c4d5e8999330
+[I 2025-02-10 12:44:28.829 ServerApp] Saving file at /data_scripts/ml_data_PE.ipynb
+[W 2025-02-10 12:44:32.378 ServerApp] IOPub data rate exceeded.
+    The Jupyter server will temporarily stop sending output
+    to the client in order to avoid crashing it.
+    To change this limit, set the config variable
+    `--ServerApp.iopub_data_rate_limit`.
+    
+    Current values:
+    ServerApp.iopub_data_rate_limit=1000000.0 (bytes/sec)
+    ServerApp.rate_limit_window=3.0 (secs)
+    
+[W 2025-02-10 12:44:34.174 ServerApp] iopub messages resumed
+[W 2025-02-10 12:44:36.024 ServerApp] IOPub data rate exceeded.
+    The Jupyter server will temporarily stop sending output
+    to the client in order to avoid crashing it.
+    To change this limit, set the config variable
+    `--ServerApp.iopub_data_rate_limit`.
+    
+    Current values:
+    ServerApp.iopub_data_rate_limit=1000000.0 (bytes/sec)
+    ServerApp.rate_limit_window=3.0 (secs)
+    
+[W 2025-02-10 12:44:37.445 ServerApp] iopub messages resumed
+[W 2025-02-10 12:44:38.666 ServerApp] IOPub data rate exceeded.
+    The Jupyter server will temporarily stop sending output
+    to the client in order to avoid crashing it.
+    To change this limit, set the config variable
+    `--ServerApp.iopub_data_rate_limit`.
+    
+    Current values:
+    ServerApp.iopub_data_rate_limit=1000000.0 (bytes/sec)
+    ServerApp.rate_limit_window=3.0 (secs)
+    
+[W 2025-02-10 12:44:40.502 ServerApp] iopub messages resumed
+[W 2025-02-10 12:44:42.242 ServerApp] IOPub data rate exceeded.
+    The Jupyter server will temporarily stop sending output
+    to the client in order to avoid crashing it.
+    To change this limit, set the config variable
+    `--ServerApp.iopub_data_rate_limit`.
+    
+    Current values:
+    ServerApp.iopub_data_rate_limit=1000000.0 (bytes/sec)
+    ServerApp.rate_limit_window=3.0 (secs)
+    
+[W 2025-02-10 12:44:44.137 ServerApp] iopub messages resumed
+[W 2025-02-10 12:44:45.588 ServerApp] IOPub data rate exceeded.
+    The Jupyter server will temporarily stop sending output
+    to the client in order to avoid crashing it.
+    To change this limit, set the config variable
+    `--ServerApp.iopub_data_rate_limit`.
+    
+    Current values:
+    ServerApp.iopub_data_rate_limit=1000000.0 (bytes/sec)
+    ServerApp.rate_limit_window=3.0 (secs)
+    
+[I 2025-02-10 12:45:56.841 ServerApp] Kernel interrupted: 8a75c9fa-d491-472e-aa73-3c7c5892c804
+[I 2025-02-10 12:46:26.898 ServerApp] Kernel restarted: 8a75c9fa-d491-472e-aa73-3c7c5892c804
+[I 2025-02-10 12:46:26.901 ServerApp] Starting buffering for 8a75c9fa-d491-472e-aa73-3c7c5892c804:2a293822-bf02-4982-9cae-c4d5e8999330
+[I 2025-02-10 12:46:26.903 ServerApp] Connecting to kernel 8a75c9fa-d491-472e-aa73-3c7c5892c804.
+[I 2025-02-10 12:46:26.903 ServerApp] Restoring connection for 8a75c9fa-d491-472e-aa73-3c7c5892c804:2a293822-bf02-4982-9cae-c4d5e8999330
+[I 2025-02-10 12:46:28.859 ServerApp] Saving file at /data_scripts/ml_data_PE.ipynb
+[I 2025-02-10 12:46:33.616 ServerApp] Kernel interrupted: 8a75c9fa-d491-472e-aa73-3c7c5892c804
+[I 2025-02-10 12:46:55.872 ServerApp] Kernel interrupted: 8a75c9fa-d491-472e-aa73-3c7c5892c804
+[I 2025-02-10 12:48:29.829 ServerApp] Saving file at /data_scripts/ml_data_PE.ipynb
+[I 2025-02-10 12:54:14.641 ServerApp] Kernel interrupted: 8a75c9fa-d491-472e-aa73-3c7c5892c804
+[I 2025-02-10 12:54:31.829 ServerApp] Saving file at /data_scripts/ml_data_PE.ipynb
+[I 2025-02-10 12:58:43.314 ServerApp] Kernel interrupted: 8a75c9fa-d491-472e-aa73-3c7c5892c804
+[I 2025-02-10 13:00:31.858 ServerApp] Saving file at /data_scripts/ml_data_PE.ipynb
+[C 2025-02-10 13:41:18.480 ServerApp] received signal 15, stopping
+[I 2025-02-10 13:41:18.480 ServerApp] Shutting down 6 extensions
+[I 2025-02-10 13:41:18.480 ServerApp] Shutting down 3 kernels
+[I 2025-02-10 13:41:18.481 ServerApp] Kernel shutdown: d7642603-17e8-445b-87e1-38c26b8a5259
+[I 2025-02-10 13:41:18.481 ServerApp] Kernel shutdown: 8a75c9fa-d491-472e-aa73-3c7c5892c804
+[I 2025-02-10 13:41:18.481 ServerApp] Kernel shutdown: 3317ac9b-7595-485a-a5c9-f5ca118a29ca
