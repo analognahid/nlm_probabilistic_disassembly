@@ -21,9 +21,9 @@ import subprocess
 from subprocess import STDOUT, check_output
 
 
-BIN_PATH  = '/home/raisul/DATA/x86_pe_msvc_sample'
+BIN_PATH  = '/home/raisul/DATA/x86_O2_d4/'
 
-output_dir_path = '/home/raisul/ANALYSED_DATA/ghidra_x86_pe_msvc/'
+output_dir_path = '/home/raisul/ANALYSED_DATA/ghidra_x86_O2_d4/'
 
 
 
@@ -32,9 +32,7 @@ output_dir_path = '/home/raisul/ANALYSED_DATA/ghidra_x86_pe_msvc/'
 
 def analyse(  binary_path ):
 
-    print(binary_path)
     output_file_path = os.path.join(output_dir_path , os.path.basename(binary_path).split('.')[0]+'.json' ) 
-    print(output_file_path)
     if os.path.isfile(output_file_path): #file already analysed
         return
 
@@ -54,20 +52,13 @@ def analyse(  binary_path ):
     print(command)
     if not os.path.isdir(ghidra_proj_path):
         os.makedirs(ghidra_proj_path)
-        # os.makedirs(os.path.join( ghidra_proj_path,'ghidraBenchmarking_MainProcess' ))
-    
-    
 
     cmd_process = subprocess.Popen(command, shell=True)
-
-
 
     (output, err) = cmd_process.communicate()  
     # #This makes the wait possible
     p_status = cmd_process.wait(timeout=10)
     cmd_process.kill()
-
-
 
 filtered_files  = [os.path.join(BIN_PATH, f) for f in os.listdir(BIN_PATH) ]
 
@@ -81,7 +72,7 @@ if __name__ == "__main__":  # Allows for the safe importing of the main module
     number_processes = int(multiprocessing.cpu_count() *1 )
     pool = multiprocessing.Pool(number_processes)
 
-    print('here',filtered_files)
+
     results = pool.map_async(analyse, filtered_files)
     pool.close()
     pool.join()
