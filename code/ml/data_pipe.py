@@ -1,68 +1,78 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[3]:
+# In[1]:
 
 
 from accelerate import Accelerator
-accelerator = Accelerator()
-# from accelerate import notebook_launcher
-
-# Optionally, you can specify the number of processes like this:
-accelerator.state.num_processes = 3  # For 3 GPUs
-
-# This will automatically handle device placement for you
-device = accelerator.device
-
-
 import torch
+
+accelerator = Accelerator()
+accelerator.state.num_processes = 3  # For 3 GPUs
+device = accelerator.device
 # device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
 
-# In[8]:
+# In[2]:
 
 
-import os,sys, json
-import magic, hashlib, os, traceback
-import ntpath
+import os,sys, json,re
+import magic, hashlib,  traceback ,ntpath, collections ,lief
 from capstone import *
 from capstone.x86 import *
 import torch.nn as nn
-import collections
-import traceback
 import lief
 from elftools.elf.elffile import ELFFile
 from transformers import AdamW,AutoTokenizer
 from tqdm import tqdm  # for our progress bar
 from sklearn.metrics import precision_recall_fscore_support , accuracy_score,f1_score, confusion_matrix,mean_squared_error, mean_absolute_error, r2_score
-
 from numpy import *
+from num2words import num2words
 
 
-# In[9]:
+# In[3]:
 
 
-bin_path = '/home/raisul/DATA/x86_O2_d4/' #'/home/raisul/DATA/x86_O2_d4_mingw32_PE' 
-
-bin_files = [os.path.join(bin_path, f) for f in os.listdir(bin_path) ][0:2000]
-
-ground_truth_path ='/home/raisul/ANALYSED_DATA/ghidra_x86_O2_d4/' # '/home/raisul/ANALYSED_DATA/ghidra_x86_O2_d4_mingw32_PE'  
-
-
-# In[10]:
-
-
-MAX_TOKEN_SIZE = 256
-BATCH_SIZE = 260
+BIN_FILE_TYPE = 'PE' #or ELF
+bin_path = '/home/raisul/DATA/temp/x86_pe_msvc_O2_static/'
+bin_files = [os.path.join(bin_path, f) for f in os.listdir(bin_path) if f.endswith(".exe")]#[0:2]
+ground_truth_path ='/home/raisul/DATA/temp/ghidra_x86_pe_msvc_O2_debug/'  
+MODEL_SAVE_PATH= '/home/raisul/probabilistic_disassembly/models/'
+EXPERIMENT_NAME = 'prototype_pe_small'
+MAX_TOKEN_SIZE = 120
+MAX_SEQUENCE_LENGTH = 10
+VOCAB_SIZE = 500
+BATCH_SIZE = 600
 
 
-# In[11]:
+# In[4]:
 
 
-len(bin_files)
+def replace_num_with_word(input_string , replace_dict):
+    def num_to_word(match):
+        number = int( match.group(0))
+        return num2words(replace_dict[number]).replace(' ','').replace('-',"")
+    result_string = re.sub(r'\b\d+\b', num_to_word, input_string)
+    return result_string
 
 
-# In[6]:
+
+def replace_hex_with_decimal(input_string):
+    # Regular expression to find hexadecimal numbers prefixed with "0x" or "0X"
+    hex_pattern = r'0[xX][0-9a-fA-F]+'
+    
+    # Function to convert each found hex number to decimal
+    def hex_to_decimal(match):
+        hex_value = match.group(0)  # Extract the matched hex number
+        decimal_value = str(int(hex_value, 16))  # Convert hex to decimal
+        return decimal_value
+    # Substitute all hex numbers in the string with their decimal equivalents
+    result_string = re.sub(hex_pattern, hex_to_decimal, input_string)
+    return result_string
+
+
+
+# In[5]:
 
 
 def get_ground_truth_ghidra(exe_path, text_section_offset , text_section_len):
@@ -111,31 +121,30 @@ def find_data_in_textsection(ground_truth_offsets , text_section_offset , text_s
             
 
 
-# In[7]:
+# In[6]:
 
 
 def linear_sweep(offset_inst , target_offset):
     inst_sequence = ''
-    max_seq_length = 15
-
+    address_list = []
     
     current_offset = target_offset
-    for q in range(max_seq_length):
+    for q in range(MAX_SEQUENCE_LENGTH):
 
         if current_offset in offset_inst: #if end of text section
             current_instruction = offset_inst[current_offset]
             if current_instruction is None:
-
-
                 return  None
                 
             current_offset = current_offset + current_instruction.size
             inst_sequence+= str( hex(current_instruction.address)) +" "+ current_instruction.mnemonic +' '+ current_instruction.op_str+ ' ; ' 
-
+            address_list.append(current_instruction.address)
+            
             if current_instruction.mnemonic in ["ret", "jmp"]: #break linear sweep
-                return inst_sequence
+                break
+                
 
-    return inst_sequence
+    return inst_sequence, address_list
 
 
 SEQUENCES = []
@@ -152,12 +161,19 @@ for bin_file_path in bin_files:
     with open(bin_file_path, 'rb') as f:
 
         try:
-            elffile = ELFFile(f)
-           
-            textSection = elffile.get_section_by_name('.text').data()
-        
-            text_section_offset = elffile.get_section_by_name('.text')['sh_offset']
-          
+            if BIN_FILE_TYPE == "ELF":
+                elffile = ELFFile(f)
+                textSection = elffile.get_section_by_name('.text').data()
+                text_section_offset = elffile.get_section_by_name('.text')['sh_offset']
+              
+            elif BIN_FILE_TYPE == "PE":
+
+                        
+                pe_file = lief.parse(bin_file_path)
+                text_section = pe_file.get_section(".text")
+                text_section_offset = text_section.pointerto_raw_data
+                textSection = bytes(text_section.content)
+                
             ground_truth_offsets = get_ground_truth_ghidra(bin_file_path, text_section_offset , len(textSection))
             
         except Exception as e:
@@ -165,8 +181,6 @@ for bin_file_path in bin_files:
             continue
 
     for byte_index in range(len(textSection)):
-        
-    
         try:    
 
             instruction = next(md.disasm(textSection[byte_index: byte_index+15 ], text_section_offset + byte_index ), None)
@@ -192,32 +206,50 @@ for bin_file_path in bin_files:
 
     
     for byte_offset in range(text_section_offset, text_section_offset+len(textSection)):
-        inst_seq = linear_sweep(offset_inst_dict ,  byte_offset )
-        if inst_seq== None:
+        return_value = linear_sweep(offset_inst_dict ,  byte_offset )
+        if return_value== None:
             continue
+        inst_seq, inst_addresses = return_value 
+        ###################################################################
+        ## number to words
+        disassembly_decimal = replace_hex_with_decimal(inst_seq)
 
-        SEQUENCES.append(inst_seq)
+        #num to words all
+        numbers = [int(s) for s in re.findall(r'\b\d+\b', disassembly_decimal)]
+        numbers = sorted(set(numbers) , reverse=True)
+        number_word_dict = {}
+        
+        for ix,n in enumerate(numbers):
+            number_word_dict[n] = len(numbers)-1 -ix
+
+        disassembly_num_to_words = replace_num_with_word(disassembly_decimal , number_word_dict)
+
+        
+
+
+        
+        ###########################################################################
+        
+        
+        SEQUENCES.append(disassembly_num_to_words)
         if byte_offset in ground_truth_offsets:
-            LABELS.append(float(0))
-        else:
             LABELS.append(float(1))
+        else:
+            LABELS.append(float(0))
 
 
 
-# In[8]:
+# In[7]:
 
 
 print(len(SEQUENCES) , len(LABELS))
 print(LABELS.count(0), LABELS.count(1))
+# for j in range(10000):
+#     if LABELS[j]==0:
+#         print(LABELS[j] , ' > ' , SEQUENCES[j]  )
 
 
-# In[9]:
-
-
-SEQUENCES[0]
-
-
-# In[10]:
+# In[8]:
 
 
 import sys,os
@@ -227,7 +259,7 @@ from transformers import BertTokenizer,BertForSequenceClassification
 # If using a character-level tokenizer for sequences like DNA/Protein:
 tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")#BertTokenizer.from_pretrained('bert-base-uncased')
 
-tokenizer = tokenizer.train_new_from_iterator(SEQUENCES, 2000)
+tokenizer = tokenizer.train_new_from_iterator(SEQUENCES, VOCAB_SIZE)
 
 
 model = BertForSequenceClassification.from_pretrained(
@@ -235,6 +267,12 @@ model = BertForSequenceClassification.from_pretrained(
     num_labels=1  
 )
 
+# model = BertForSequenceClassification.from_pretrained(
+#     MODEL_SAVE_PATH +EXPERIMENT_NAME,
+#     num_labels=1  
+# )
+
+model.resize_token_embeddings(VOCAB_SIZE)
 model.to(device)
 
 
@@ -242,13 +280,13 @@ optim = AdamW( model.parameters() , lr=1e-5, eps = 1e-6, betas=(0.9,0.98), weigh
 
 
 
-# In[ ]:
+# In[9]:
 
 
+SEQUENCES[0]
 
 
-
-# In[11]:
+# In[10]:
 
 
 class BinaryDataset(torch.utils.data.Dataset):
@@ -264,49 +302,45 @@ class BinaryDataset(torch.utils.data.Dataset):
         # Tokenize the 
         tokenized_text = (self.tokenizer(text , max_length= MAX_TOKEN_SIZE,padding='max_length', truncation=True , return_tensors='pt')).to(device)
         
-        # Convert tokens to input IDs
-#         input_ids = self.tokenizer.convert_tokens_to_ids(tokenized_text)
-        
-        # Create input tensors
-#         input_ids = tokenized_text['input_ids']  #torch.tensor(input_ids)
-        # label = torch.tensor([label]).to(device)
         return tokenized_text, label
         
-#         return {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
     def __len__(self):
         return len(self.texts)
 
 
-# In[12]:
+# In[11]:
 
 
 dataset = BinaryDataset(SEQUENCES, LABELS,tokenizer)
 train_size = int(0.8 * len(dataset))
 validation_size = len(dataset) - train_size
 
-train_dataset, validation_dataset = torch.utils.data.random_split(dataset, [train_size, validation_size] , generator=torch.Generator().manual_seed(42))
+train_dataset  = torch.utils.data.Subset(dataset, range(train_size))
+validation_dataset = torch.utils.data.Subset(dataset, range(train_size , len(dataset)))
+
+# train_dataset, validation_dataset = torch.utils.data.random_split(dataset, [train_size, validation_size] , generator=torch.Generator().manual_seed(42))
+
+
+# In[12]:
+
+
+len(train_dataset) , len(validation_dataset)
 
 
 # In[13]:
 
 
-print(len(dataset))
+train_loader      = torch.utils.data.DataLoader(train_dataset, batch_size=BATCH_SIZE ,shuffle=False) 
+validation_loader = torch.utils.data.DataLoader(validation_dataset, batch_size=BATCH_SIZE, shuffle=False) 
 
 
 # In[14]:
 
 
-train_loader      = torch.utils.data.DataLoader(train_dataset, batch_size=BATCH_SIZE ,shuffle=True) 
-validation_loader = torch.utils.data.DataLoader(validation_dataset, batch_size=BATCH_SIZE, shuffle=True)
-
-
-# In[15]:
-
-
 model, optim, train_loader,validation_loader = accelerator.prepare(model, optim, train_loader,validation_loader)
 
 
-# In[16]:
+# In[15]:
 
 
 def training_loop(model ,data_loop, is_training = False):
@@ -315,8 +349,6 @@ def training_loop(model ,data_loop, is_training = False):
     losses = []
 
     for N,batch in enumerate(data_loop):
-        
-
         # Forward pass
         if is_training == True:
             optim.zero_grad()
@@ -340,11 +372,8 @@ def training_loop(model ,data_loop, is_training = False):
         losses.append(loss.item())
         
         logits = outputs.logits
-        predictions = torch.argmax(logits, dim=1)
-
-        # print(logits)
-
-        # print(logits.squeeze())
+        predictions = logits.squeeze()
+        # print(logits ,predictions )
 
         prediction_s.extend(predictions.detach().cpu().numpy().flatten())
         ground_truth_s.extend(batch_labels.detach().cpu().numpy().flatten())
@@ -358,21 +387,12 @@ def training_loop(model ,data_loop, is_training = False):
         data_loop.set_description(f'Epoch {ecpoch}')
         data_loop.set_postfix(loss=loss.item())
 
-    ###### Training Scores
-    # accuracy = accuracy_score(ground_truth_s, prediction_s)    
-    # precision, recall, f1, _ = precision_recall_fscore_support(ground_truth_s,prediction_s,average='weighted')
-
     # Evaluation Metrics
     mse = mean_squared_error(ground_truth_s, prediction_s)
     rmse = sqrt(mse)
     mae = mean_absolute_error(ground_truth_s, prediction_s)
     r2 = r2_score(ground_truth_s, prediction_s)
     
-    # print(f"MSE: {mse:.4f}")
-    # print(f"RMSE: {rmse:.4f}")
-    # print(f"MAE: {mae:.4f}")
-    # print(f"R²: {r2:.4f}")
-
 
     metrices = {'MSE':mse ,
                       'RMSE':rmse, 
@@ -382,7 +402,7 @@ def training_loop(model ,data_loop, is_training = False):
     return metrices , prediction_s, ground_truth_s
 
 
-# In[17]:
+# In[16]:
 
 
 EPOCHS = 100
@@ -399,13 +419,33 @@ for ecpoch in range(EPOCHS):
     metrices,prediction_s, ground_truth_s  = training_loop(model ,train_loop, is_training = True)
     global_metrices.append(metrices)
     print("Training metrices ",metrices)
-    
+     
     with torch.no_grad():
         model.eval()
         validation_loop = tqdm(validation_loader, leave=True)
         v_metrices, v_prediction_s, v_ground_truth_s  = training_loop(model ,validation_loop, is_training = False)
-        print('v_metrices: ',v_metrices)
+
+
+        demo_len =100000
+        for i in range(int(minimum(demo_len , len(v_prediction_s) ))):
+
+            print('\n')
+            print( v_prediction_s[i], v_ground_truth_s[i] )
+            print(tokenizer.decode(validation_dataset[i][0].input_ids[0],skip_special_tokens=True).split('[SEP]')[0] )
+
+           
+        print( 'v_metrices: ',v_metrices )
         v_global_metrices.append(v_metrices)
+        
+    if accelerator.is_main_process:
+        unwrapped_model = accelerator.unwrap_model(model)
+        unwrapped_model.save_pretrained(MODEL_SAVE_PATH + EXPERIMENT_NAME)
+
+        print('SAVING MODEL @ ',MODEL_SAVE_PATH +EXPERIMENT_NAME)
+        unwrapped_model.save_pretrained(MODEL_SAVE_PATH +EXPERIMENT_NAME)
+        print('saved')
+
+
 
 
 # In[ ]:

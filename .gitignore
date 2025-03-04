@@ -2,3 +2,8 @@ models/
 *.pkl
 *.json
 *.ignore.*
+*.exe
+*.log
+*.txt
+*.o
+*.out
