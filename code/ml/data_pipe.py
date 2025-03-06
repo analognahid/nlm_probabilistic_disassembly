@@ -147,129 +147,129 @@ def linear_sweep(offset_inst , target_offset):
 # In[6]:
 
 
-# SEQUENCES = []
-# LABELS     = []
+SEQUENCES = []
+LABELS     = []
 
-# for bin_file_path in bin_files:
-
-    
-#     md = Cs(CS_ARCH_X86, CS_MODE_64)
-#     md.detail = True
-#     offset_inst = {}
+for bin_file_path in bin_files:
 
     
-#     with open(bin_file_path, 'rb') as f:
+    md = Cs(CS_ARCH_X86, CS_MODE_64)
+    md.detail = True
+    offset_inst = {}
 
-#         try:
-#             if BIN_FILE_TYPE == "ELF":
-#                 elffile = ELFFile(f)
-#                 textSection = elffile.get_section_by_name('.text').data()
-#                 text_section_offset = elffile.get_section_by_name('.text')['sh_offset']
+    
+    with open(bin_file_path, 'rb') as f:
+
+        try:
+            if BIN_FILE_TYPE == "ELF":
+                elffile = ELFFile(f)
+                textSection = elffile.get_section_by_name('.text').data()
+                text_section_offset = elffile.get_section_by_name('.text')['sh_offset']
               
-#             elif BIN_FILE_TYPE == "PE":
+            elif BIN_FILE_TYPE == "PE":
 
                         
-#                 pe_file = lief.parse(bin_file_path)
-#                 text_section = pe_file.get_section(".text")
-#                 text_section_offset = text_section.pointerto_raw_data
-#                 textSection = bytes(text_section.content)
+                pe_file = lief.parse(bin_file_path)
+                text_section = pe_file.get_section(".text")
+                text_section_offset = text_section.pointerto_raw_data
+                textSection = bytes(text_section.content)
                 
-#             ground_truth_offsets = get_ground_truth_ghidra(bin_file_path, text_section_offset , len(textSection))
+            ground_truth_offsets = get_ground_truth_ghidra(bin_file_path, text_section_offset , len(textSection))
             
-#         except Exception as e:
-#             print("An error occurred:", e ,bin_file_path)
-#             continue
+        except Exception as e:
+            print("An error occurred:", e ,bin_file_path)
+            continue
 
-#     for byte_index in range(len(textSection)):
-#         try:    
+    for byte_index in range(len(textSection)):
+        try:    
 
-#             instruction = next(md.disasm(textSection[byte_index: byte_index+15 ], text_section_offset + byte_index ), None)
-#             offset_inst[text_section_offset+byte_index] = instruction
+            instruction = next(md.disasm(textSection[byte_index: byte_index+15 ], text_section_offset + byte_index ), None)
+            offset_inst[text_section_offset+byte_index] = instruction
             
-#             # if instruction:
-#             #     print("%d:\t%s\t%s _\t%x" %(int(instruction.address), instruction.mnemonic, instruction.op_str, instruction.size))
-#             # else:
-#             #     print("%d:\t%s " % (text_section_offset + byte_index  , 'invalid instruction') )
+            # if instruction:
+            #     print("%d:\t%s\t%s _\t%x" %(int(instruction.address), instruction.mnemonic, instruction.op_str, instruction.size))
+            # else:
+            #     print("%d:\t%s " % (text_section_offset + byte_index  , 'invalid instruction') )
                 
             
 
-#         except Exception as e:
-#             print(traceback.print_exc() )
-#             print(e)
+        except Exception as e:
+            print(traceback.print_exc() )
+            print(e)
 
     
     
-#     offset_inst_dict = collections.OrderedDict(sorted(offset_inst.items()))
+    offset_inst_dict = collections.OrderedDict(sorted(offset_inst.items()))
 
-#     DATA_OFFSETS = find_data_in_textsection(ground_truth_offsets , text_section_offset , len(textSection) , offset_inst)
+    DATA_OFFSETS = find_data_in_textsection(ground_truth_offsets , text_section_offset , len(textSection) , offset_inst)
 
 
     
-#     for byte_offset in range(text_section_offset, text_section_offset+len(textSection)):
-#         return_value = linear_sweep(offset_inst_dict ,  byte_offset )
-#         if return_value== None:
-#             continue
-#         inst_seq, inst_addresses = return_value 
-#         ###################################################################
-#         ## number to words
-#         disassembly_decimal = replace_hex_with_decimal(inst_seq)
+    for byte_offset in range(text_section_offset, text_section_offset+len(textSection)):
+        return_value = linear_sweep(offset_inst_dict ,  byte_offset )
+        if return_value== None:
+            continue
+        inst_seq, inst_addresses = return_value 
+        ###################################################################
+        ## number to words
+        disassembly_decimal = replace_hex_with_decimal(inst_seq)
 
-#         #num to words all
-#         numbers = [int(s) for s in re.findall(r'\b\d+\b', disassembly_decimal)]
-#         numbers = sorted(set(numbers) , reverse=True)
-#         number_word_dict = {}
+        #num to words all
+        numbers = [int(s) for s in re.findall(r'\b\d+\b', disassembly_decimal)]
+        numbers = sorted(set(numbers) , reverse=True)
+        number_word_dict = {}
         
-#         for ix,n in enumerate(numbers):
-#             number_word_dict[n] = len(numbers)-1 -ix
+        for ix,n in enumerate(numbers):
+            number_word_dict[n] = len(numbers)-1 -ix
 
-#         disassembly_num_to_words = replace_num_with_word(disassembly_decimal , number_word_dict)
-
-        
-
+        disassembly_num_to_words = replace_num_with_word(disassembly_decimal , number_word_dict)
 
         
-#         ###########################################################################
+
+
+        
+        ###########################################################################
         
         
-#         SEQUENCES.append(disassembly_num_to_words ) #os.path.basename(bin_file_path)+"_"+str(byte_offset)+"_"+
-#         if byte_offset in ground_truth_offsets:
-#             LABELS.append(float(1))
-#         else:
-#             LABELS.append(float(0))
+        SEQUENCES.append(os.path.basename(bin_file_path)+"_"+str(byte_offset)+"_"+disassembly_num_to_words ) #os.path.basename(bin_file_path)+"_"+str(byte_offset)+"_"+
+        if byte_offset in ground_truth_offsets:
+            LABELS.append(float(1))
+        else:
+            LABELS.append(float(0))
 
 
 
 
-# #Downsample 
-# data = pd.DataFrame({"text": SEQUENCES, "label": LABELS})
+#Downsample 
+data = pd.DataFrame({"text": SEQUENCES, "label": LABELS})
 
-# # Split by label
-# zeros = data[data["label"] == 0]
-# ones = data[data["label"] == 1]
+# Split by label
+zeros = data[data["label"] == 0]
+ones = data[data["label"] == 1]
 
-# # Downsample zeros to 10%
-# zeros_downsampled = zeros.sample(frac=0.1, random_state=42)
+# Downsample zeros to 10%
+zeros_downsampled = zeros.sample(frac=0.1, random_state=42)
 
-# # Combine and shuffle
-# balanced_data = pd.concat([zeros_downsampled, ones]).sample(frac=1, random_state=42)
+# Combine and shuffle
+balanced_data = pd.concat([zeros_downsampled, ones]).sample(frac=1, random_state=42)
 
-# # Extract final lists
-# SEQUENCES = balanced_data["text"].tolist()
-# LABELS = balanced_data["label"].tolist()
+# Extract final lists
+SEQUENCES = balanced_data["text"].tolist()
+LABELS = balanced_data["label"].tolist()
 
-# print(len(SEQUENCES) , len(LABELS))
-# print(LABELS.count(0), LABELS.count(1))
+print(len(SEQUENCES) , len(LABELS))
+print(LABELS.count(0), LABELS.count(1))
 
-# with open(MODEL_SAVE_PATH+'training_data.ignore.pkl', 'wb') as f:
-#     pickle.dump([SEQUENCES,LABELS], f)
+with open(MODEL_SAVE_PATH+'training_data.ignore.pkl', 'wb') as f:
+    pickle.dump([SEQUENCES,LABELS], f)
 
 
 # In[7]:
 
 
-# Load from file
-with open(MODEL_SAVE_PATH+'training_data.ignore.pkl', 'rb') as f:
-    SEQUENCES,LABELS = pickle.load(f)
+# # Load from file
+# with open(MODEL_SAVE_PATH+'training_data.ignore.pkl', 'rb') as f:
+#     SEQUENCES,LABELS = pickle.load(f)
 
 
 # In[8]:
@@ -286,7 +286,7 @@ for j in range(100):
 
 
 
-# In[9]:
+# In[ ]:
 
 
 import sys,os
@@ -317,13 +317,13 @@ optim = AdamW( model.parameters() , lr=1e-5, eps = 1e-6, betas=(0.9,0.98), weigh
 
 
 
-# In[10]:
+# In[ ]:
 
 
 SEQUENCES[0]
 
 
-# In[11]:
+# In[ ]:
 
 
 class BinaryDataset(torch.utils.data.Dataset):
@@ -345,7 +345,7 @@ class BinaryDataset(torch.utils.data.Dataset):
         return len(self.texts)
 
 
-# In[12]:
+# In[ ]:
 
 
 dataset = BinaryDataset(SEQUENCES, LABELS,tokenizer)
@@ -358,26 +358,26 @@ validation_dataset = torch.utils.data.Subset(dataset, range(train_size , len(dat
 # train_dataset, validation_dataset = torch.utils.data.random_split(dataset, [train_size, validation_size] , generator=torch.Generator().manual_seed(42))
 
 
-# In[13]:
+# In[ ]:
 
 
 len(train_dataset) , len(validation_dataset)
 
 
-# In[14]:
+# In[ ]:
 
 
 train_loader      = torch.utils.data.DataLoader(train_dataset, batch_size=BATCH_SIZE ,shuffle=False) 
 validation_loader = torch.utils.data.DataLoader(validation_dataset, batch_size=BATCH_SIZE, shuffle=False) 
 
 
-# In[15]:
+# In[ ]:
 
 
 model, optim, train_loader,validation_loader = accelerator.prepare(model, optim, train_loader,validation_loader)
 
 
-# In[16]:
+# In[ ]:
 
 
 def training_loop(model ,data_loop, is_training = False):
@@ -439,7 +439,7 @@ def training_loop(model ,data_loop, is_training = False):
     return metrices , prediction_s, ground_truth_s
 
 
-# In[17]:
+# In[ ]:
 
 
 EPOCHS = 100
@@ -451,11 +451,11 @@ v_global_metrices = []
 
 for ecpoch in range(EPOCHS):
     
-    train_loop = tqdm(train_loader, leave=True)
-    model.train()
-    metrices,prediction_s, ground_truth_s  = training_loop(model ,train_loop, is_training = True)
-    global_metrices.append(metrices)
-    print("Training metrices ",metrices)
+    # train_loop = tqdm(train_loader, leave=True)
+    # model.train()
+    # metrices,prediction_s, ground_truth_s  = training_loop(model ,train_loop, is_training = True)
+    # global_metrices.append(metrices)
+    # print("Training metrices ",metrices)
      
     with torch.no_grad():
         model.eval()
@@ -464,7 +464,7 @@ for ecpoch in range(EPOCHS):
 
 
         demo_len =100000
-        for i in range(int(minimum(demo_len , len(v_prediction_s) ))):
+        for i in range(minimum(demo_len , len(v_prediction_s) )):
 
             print('\n')
             generated_text = tokenizer.decode(validation_dataset[i][0].input_ids[0],skip_special_tokens=True).split('[SEP]')[0]
