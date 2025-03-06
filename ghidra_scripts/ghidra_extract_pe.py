@@ -51,6 +51,8 @@ def run():
         address = int(instruction.getAddress().subtract(0).toString(),16) #int( inst.getAddress().subtract(0).toString(),16)
 
         mnemonic = instruction.getMnemonicString()
+        if mnemonic == 'INT3':
+            continue
         operands = []
         for i in range(instruction.getNumOperands()):
             operands.append(instruction.getDefaultOperandRepresentation(i))

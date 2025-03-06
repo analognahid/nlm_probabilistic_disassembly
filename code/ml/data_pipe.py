@@ -16,7 +16,7 @@ device = accelerator.device
 # In[2]:
 
 
-import os,sys, json,re
+import os,sys, json,re, pickle
 import magic, hashlib,  traceback ,ntpath, collections ,lief
 from capstone import *
 from capstone.x86 import *
@@ -28,6 +28,7 @@ from tqdm import tqdm  # for our progress bar
 from sklearn.metrics import precision_recall_fscore_support , accuracy_score,f1_score, confusion_matrix,mean_squared_error, mean_absolute_error, r2_score
 from numpy import *
 from num2words import num2words
+import pandas as pd
 
 
 # In[3]:
@@ -35,14 +36,14 @@ from num2words import num2words
 
 BIN_FILE_TYPE = 'PE' #or ELF
 bin_path = '/home/raisul/DATA/temp/x86_pe_msvc_O2_static/'
-bin_files = [os.path.join(bin_path, f) for f in os.listdir(bin_path) if f.endswith(".exe")]#[0:2]
+bin_files = [os.path.join(bin_path, f) for f in os.listdir(bin_path) if f.endswith(".exe")]
 ground_truth_path ='/home/raisul/DATA/temp/ghidra_x86_pe_msvc_O2_debug/'  
 MODEL_SAVE_PATH= '/home/raisul/probabilistic_disassembly/models/'
 EXPERIMENT_NAME = 'prototype_pe_small'
 MAX_TOKEN_SIZE = 120
 MAX_SEQUENCE_LENGTH = 10
 VOCAB_SIZE = 500
-BATCH_SIZE = 600
+BATCH_SIZE = 500
 
 
 # In[4]:
@@ -103,7 +104,6 @@ def find_data_in_textsection(ground_truth_offsets , text_section_offset , text_s
         
         if distance!=inst_len:
             # print('offset_ranges[i]: ',ground_truth_offsets[i] , 'offset_ranges[i-1]: ',ground_truth_offsets[i-1], ' inst_len: ',inst_len  )
-            
             # print(ground_truth_offsets[i],' ' ,hex(ground_truth_offsets[i]) , offset_inst_dict[ground_truth_offsets[i]], ' len',offset_inst_dict[ground_truth_offsets[i]].size )
             # print("\nByte GAP ###### ",distance ,' Missing bytes: ', distance - inst_len)
             
@@ -118,11 +118,7 @@ def find_data_in_textsection(ground_truth_offsets , text_section_offset , text_s
             # print(ground_truth_offsets[i],' ', hex(ground_truth_offsets[i]) , offset_inst_dict[ground_truth_offsets[i]].mnemonic,offset_inst_dict[ground_truth_offsets[i]].op_str ,' len',offset_inst_dict[ground_truth_offsets[i]].size)
             pass
     return data_offsets
-            
-
-
-# In[6]:
-
+    
 
 def linear_sweep(offset_inst , target_offset):
     inst_sequence = ''
@@ -145,111 +141,152 @@ def linear_sweep(offset_inst , target_offset):
                 
 
     return inst_sequence, address_list
+    
 
 
-SEQUENCES = []
-LABELS     = []
+# In[6]:
 
-for bin_file_path in bin_files:
+
+# SEQUENCES = []
+# LABELS     = []
+
+# for bin_file_path in bin_files:
 
     
-    md = Cs(CS_ARCH_X86, CS_MODE_64)
-    md.detail = True
-    offset_inst = {}
+#     md = Cs(CS_ARCH_X86, CS_MODE_64)
+#     md.detail = True
+#     offset_inst = {}
 
     
-    with open(bin_file_path, 'rb') as f:
+#     with open(bin_file_path, 'rb') as f:
 
-        try:
-            if BIN_FILE_TYPE == "ELF":
-                elffile = ELFFile(f)
-                textSection = elffile.get_section_by_name('.text').data()
-                text_section_offset = elffile.get_section_by_name('.text')['sh_offset']
+#         try:
+#             if BIN_FILE_TYPE == "ELF":
+#                 elffile = ELFFile(f)
+#                 textSection = elffile.get_section_by_name('.text').data()
+#                 text_section_offset = elffile.get_section_by_name('.text')['sh_offset']
               
-            elif BIN_FILE_TYPE == "PE":
+#             elif BIN_FILE_TYPE == "PE":
 
                         
-                pe_file = lief.parse(bin_file_path)
-                text_section = pe_file.get_section(".text")
-                text_section_offset = text_section.pointerto_raw_data
-                textSection = bytes(text_section.content)
+#                 pe_file = lief.parse(bin_file_path)
+#                 text_section = pe_file.get_section(".text")
+#                 text_section_offset = text_section.pointerto_raw_data
+#                 textSection = bytes(text_section.content)
                 
-            ground_truth_offsets = get_ground_truth_ghidra(bin_file_path, text_section_offset , len(textSection))
+#             ground_truth_offsets = get_ground_truth_ghidra(bin_file_path, text_section_offset , len(textSection))
             
-        except Exception as e:
-            print("An error occurred:", e ,bin_file_path)
-            continue
+#         except Exception as e:
+#             print("An error occurred:", e ,bin_file_path)
+#             continue
 
-    for byte_index in range(len(textSection)):
-        try:    
+#     for byte_index in range(len(textSection)):
+#         try:    
 
-            instruction = next(md.disasm(textSection[byte_index: byte_index+15 ], text_section_offset + byte_index ), None)
-            offset_inst[text_section_offset+byte_index] = instruction
+#             instruction = next(md.disasm(textSection[byte_index: byte_index+15 ], text_section_offset + byte_index ), None)
+#             offset_inst[text_section_offset+byte_index] = instruction
             
-            # if instruction:
-            #     print("%d:\t%s\t%s _\t%x" %(int(instruction.address), instruction.mnemonic, instruction.op_str, instruction.size))
-            # else:
-            #     print("%d:\t%s " % (text_section_offset + byte_index  , 'invalid instruction') )
+#             # if instruction:
+#             #     print("%d:\t%s\t%s _\t%x" %(int(instruction.address), instruction.mnemonic, instruction.op_str, instruction.size))
+#             # else:
+#             #     print("%d:\t%s " % (text_section_offset + byte_index  , 'invalid instruction') )
                 
             
 
-        except Exception as e:
-            print(traceback.print_exc() )
-            print(e)
+#         except Exception as e:
+#             print(traceback.print_exc() )
+#             print(e)
 
     
     
-    offset_inst_dict = collections.OrderedDict(sorted(offset_inst.items()))
+#     offset_inst_dict = collections.OrderedDict(sorted(offset_inst.items()))
 
-    DATA_OFFSETS = find_data_in_textsection(ground_truth_offsets , text_section_offset , len(textSection) , offset_inst)
+#     DATA_OFFSETS = find_data_in_textsection(ground_truth_offsets , text_section_offset , len(textSection) , offset_inst)
 
 
     
-    for byte_offset in range(text_section_offset, text_section_offset+len(textSection)):
-        return_value = linear_sweep(offset_inst_dict ,  byte_offset )
-        if return_value== None:
-            continue
-        inst_seq, inst_addresses = return_value 
-        ###################################################################
-        ## number to words
-        disassembly_decimal = replace_hex_with_decimal(inst_seq)
+#     for byte_offset in range(text_section_offset, text_section_offset+len(textSection)):
+#         return_value = linear_sweep(offset_inst_dict ,  byte_offset )
+#         if return_value== None:
+#             continue
+#         inst_seq, inst_addresses = return_value 
+#         ###################################################################
+#         ## number to words
+#         disassembly_decimal = replace_hex_with_decimal(inst_seq)
 
-        #num to words all
-        numbers = [int(s) for s in re.findall(r'\b\d+\b', disassembly_decimal)]
-        numbers = sorted(set(numbers) , reverse=True)
-        number_word_dict = {}
+#         #num to words all
+#         numbers = [int(s) for s in re.findall(r'\b\d+\b', disassembly_decimal)]
+#         numbers = sorted(set(numbers) , reverse=True)
+#         number_word_dict = {}
         
-        for ix,n in enumerate(numbers):
-            number_word_dict[n] = len(numbers)-1 -ix
+#         for ix,n in enumerate(numbers):
+#             number_word_dict[n] = len(numbers)-1 -ix
 
-        disassembly_num_to_words = replace_num_with_word(disassembly_decimal , number_word_dict)
-
-        
-
+#         disassembly_num_to_words = replace_num_with_word(disassembly_decimal , number_word_dict)
 
         
-        ###########################################################################
-        
-        
-        SEQUENCES.append(disassembly_num_to_words)
-        if byte_offset in ground_truth_offsets:
-            LABELS.append(float(1))
-        else:
-            LABELS.append(float(0))
 
+
+        
+#         ###########################################################################
+        
+        
+#         SEQUENCES.append(disassembly_num_to_words ) #os.path.basename(bin_file_path)+"_"+str(byte_offset)+"_"+
+#         if byte_offset in ground_truth_offsets:
+#             LABELS.append(float(1))
+#         else:
+#             LABELS.append(float(0))
+
+
+
+
+# #Downsample 
+# data = pd.DataFrame({"text": SEQUENCES, "label": LABELS})
+
+# # Split by label
+# zeros = data[data["label"] == 0]
+# ones = data[data["label"] == 1]
+
+# # Downsample zeros to 10%
+# zeros_downsampled = zeros.sample(frac=0.1, random_state=42)
+
+# # Combine and shuffle
+# balanced_data = pd.concat([zeros_downsampled, ones]).sample(frac=1, random_state=42)
+
+# # Extract final lists
+# SEQUENCES = balanced_data["text"].tolist()
+# LABELS = balanced_data["label"].tolist()
+
+# print(len(SEQUENCES) , len(LABELS))
+# print(LABELS.count(0), LABELS.count(1))
+
+# with open(MODEL_SAVE_PATH+'training_data.ignore.pkl', 'wb') as f:
+#     pickle.dump([SEQUENCES,LABELS], f)
 
 
 # In[7]:
 
 
-print(len(SEQUENCES) , len(LABELS))
-print(LABELS.count(0), LABELS.count(1))
-# for j in range(10000):
-#     if LABELS[j]==0:
-#         print(LABELS[j] , ' > ' , SEQUENCES[j]  )
+# Load from file
+with open(MODEL_SAVE_PATH+'training_data.ignore.pkl', 'rb') as f:
+    SEQUENCES,LABELS = pickle.load(f)
 
 
 # In[8]:
+
+
+for j in range(100):
+    if True:#'int3' in SEQUENCES[j]: #LABELS[j] :
+        print(LABELS[j] , ' > ' , SEQUENCES[j] ,'\n' )
+
+
+# In[ ]:
+
+
+
+
+
+# In[9]:
 
 
 import sys,os
@@ -262,15 +299,15 @@ tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")#BertTokenizer.fro
 tokenizer = tokenizer.train_new_from_iterator(SEQUENCES, VOCAB_SIZE)
 
 
-model = BertForSequenceClassification.from_pretrained(
-    'bert-base-uncased',
-    num_labels=1  
-)
-
 # model = BertForSequenceClassification.from_pretrained(
-#     MODEL_SAVE_PATH +EXPERIMENT_NAME,
+#     'bert-base-uncased',
 #     num_labels=1  
 # )
+
+model = BertForSequenceClassification.from_pretrained(
+    MODEL_SAVE_PATH +EXPERIMENT_NAME,
+    num_labels=1  
+)
 
 model.resize_token_embeddings(VOCAB_SIZE)
 model.to(device)
@@ -280,13 +317,13 @@ optim = AdamW( model.parameters() , lr=1e-5, eps = 1e-6, betas=(0.9,0.98), weigh
 
 
 
-# In[9]:
+# In[10]:
 
 
 SEQUENCES[0]
 
 
-# In[10]:
+# In[11]:
 
 
 class BinaryDataset(torch.utils.data.Dataset):
@@ -308,7 +345,7 @@ class BinaryDataset(torch.utils.data.Dataset):
         return len(self.texts)
 
 
-# In[11]:
+# In[12]:
 
 
 dataset = BinaryDataset(SEQUENCES, LABELS,tokenizer)
@@ -321,26 +358,26 @@ validation_dataset = torch.utils.data.Subset(dataset, range(train_size , len(dat
 # train_dataset, validation_dataset = torch.utils.data.random_split(dataset, [train_size, validation_size] , generator=torch.Generator().manual_seed(42))
 
 
-# In[12]:
+# In[13]:
 
 
 len(train_dataset) , len(validation_dataset)
 
 
-# In[13]:
+# In[14]:
 
 
 train_loader      = torch.utils.data.DataLoader(train_dataset, batch_size=BATCH_SIZE ,shuffle=False) 
 validation_loader = torch.utils.data.DataLoader(validation_dataset, batch_size=BATCH_SIZE, shuffle=False) 
 
 
-# In[14]:
+# In[15]:
 
 
 model, optim, train_loader,validation_loader = accelerator.prepare(model, optim, train_loader,validation_loader)
 
 
-# In[15]:
+# In[16]:
 
 
 def training_loop(model ,data_loop, is_training = False):
@@ -402,7 +439,7 @@ def training_loop(model ,data_loop, is_training = False):
     return metrices , prediction_s, ground_truth_s
 
 
-# In[16]:
+# In[17]:
 
 
 EPOCHS = 100
@@ -430,8 +467,9 @@ for ecpoch in range(EPOCHS):
         for i in range(int(minimum(demo_len , len(v_prediction_s) ))):
 
             print('\n')
-            print( v_prediction_s[i], v_ground_truth_s[i] )
-            print(tokenizer.decode(validation_dataset[i][0].input_ids[0],skip_special_tokens=True).split('[SEP]')[0] )
+            generated_text = tokenizer.decode(validation_dataset[i][0].input_ids[0],skip_special_tokens=True).split('[SEP]')[0]
+            print( v_prediction_s[i], v_ground_truth_s[i] , '\n' , generated_text)
+
 
            
         print( 'v_metrices: ',v_metrices )
@@ -452,6 +490,7 @@ for ecpoch in range(EPOCHS):
 
 
 #jupyter nbconvert --to script data_pipe.ipynb
+# accelerate launch data_pipe.py > log.txt
 
 
 # In[ ]:
