@@ -21,9 +21,9 @@ import subprocess
 from subprocess import STDOUT, check_output
 
 
-BIN_PATH  = '/home/raisul/DATA/x86_pe_msvc_O2_static/'  #_stripped
+BIN_PATH  = '/home/raisul/DATA/x86_pe_msvc_O2_static_stripped/'  #_stripped
 
-output_dir_path = '/home/raisul/ANALYSED_DATA/ghidra_x86_pe_msvc_O2_static/'
+output_dir_path = '/home/raisul/ANALYSED_DATA/ghidra_x86_pe_msvc_O2_static_stripped/'
 
 
 
@@ -63,7 +63,7 @@ def analyse(  binary_path ):
 
 filtered_files  = [ os.path.join(os.path.join(BIN_PATH, f), f+'.exe') for f in os.listdir(BIN_PATH) ]
 filtered_files.sort()
-
+# filtered_files.reverse()
 
 import multiprocessing
 from multiprocessing import active_children
@@ -71,7 +71,7 @@ from multiprocessing import active_children
 if __name__ == "__main__":  # Allows for the safe importing of the main module
     print("There are {} CPUs on this machine".format( multiprocessing.cpu_count()))
     
-    number_processes = 200 #int(multiprocessing.cpu_count() *0.1 )
+    number_processes = 150 #int(multiprocessing.cpu_count() *0.1 )
     pool = multiprocessing.Pool(number_processes)
 
 

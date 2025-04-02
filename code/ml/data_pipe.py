@@ -16,12 +16,12 @@ device = accelerator.device
 # In[2]:
 
 
-import os,sys, json,re, pickle ,threading
-import magic, hashlib,  traceback ,ntpath, collections ,lief
+import magic, hashlib,  traceback ,ntpath, collections ,lief ,lief, builtins, os,sys, json,re, pickle ,threading
 from capstone import *
 from capstone.x86 import *
 import torch.nn as nn
-import lief
+
+from collections import defaultdict
 from elftools.elf.elffile import ELFFile
 from transformers import AdamW,AutoTokenizer
 from tqdm import tqdm  # for our progress bar
@@ -41,12 +41,16 @@ bin_files = [os.path.join(bin_path, f) for f in os.listdir(bin_path) if f.endswi
 ground_truth_path ='/home/raisul/ANALYSED_DATA/ghidra_x86_pe_msvc_O2_static/'#'/home/raisul/DATA/temp/ghidra_x86_pe_msvc_O2_debug/'  
 MODEL_SAVE_PATH= '/home/raisul/probabilistic_disassembly/models/'
 EXPERIMENT_NAME = 'prototype_pe_small'
+
 MAX_TOKEN_SIZE = 120
 MAX_SEQUENCE_LENGTH = 10
 VOCAB_SIZE = 500
-BATCH_SIZE = 500
-VALIDATION_DISPLAY_SIZE = 100000
-MAX_FILE_TO_USE = 100000
+BATCH_SIZE = 850
+VALIDATION_DISPLAY_SIZE = 10000
+MAX_FILE_TO_USE = 300000
+MODEL_NAME= "microsoft/MiniLM-L12-H384-uncased"# #bert-base-uncased
+pkl_data_save_path = MODEL_SAVE_PATH+'training_data_pe'+str(MAX_FILE_TO_USE)+'.ignore.pkl'
+TOKENIZER_SAVE_PATH = MODEL_SAVE_PATH + EXPERIMENT_NAME+"/tokenizer"+str(MAX_FILE_TO_USE)
 
 
 # In[4]:
@@ -62,8 +66,6 @@ def make_train_test_split(bin_path):
     return list(dict_train.keys()) , list(dict_test.keys())
 train_bins , test_bins = make_train_test_split(bin_path)
 
-train_bins = train_bins
-test_bins  = test_bins
 
 
 # In[5]:
@@ -167,125 +169,37 @@ def linear_sweep(offset_inst , target_offset):
 # In[7]:
 
 
-# def create_samples(bin_file_paths):
+import random
 
+def limit_duplicates(sequence_list, label_list, max_duplicates):
     
-#     SEQUENCES = []
-#     LABELS     = []
+    # Dictionary to store sequences and their corresponding labels
+    data_dict = defaultdict(list)
     
-#     for bin_file_path in bin_file_paths:
-    
-        
-#         md = Cs(CS_ARCH_X86, CS_MODE_64)
-#         md.detail = True
-#         offset_inst = {}
-    
-#         try:
-#             with open(bin_file_path, 'rb') as f:
-    
-            
-#                 if BIN_FILE_TYPE == "ELF":
-#                     elffile = ELFFile(f)
-#                     textSection = elffile.get_section_by_name('.text').data()
-#                     text_section_offset = elffile.get_section_by_name('.text')['sh_offset']
-                  
-#                 elif BIN_FILE_TYPE == "PE":
-    
-                            
-#                     pe_file = lief.parse(bin_file_path)
-#                     text_section = pe_file.get_section(".text")
-#                     text_section_offset = text_section.pointerto_raw_data
-#                     textSection = bytes(text_section.content)
-                    
-#                 ground_truth_offsets = get_ground_truth_ghidra(bin_file_path, text_section_offset , len(textSection))
-                
-#         except Exception as e:
-#             print("An error occurred:", e ,bin_file_path)
-#             continue
-    
-#         for byte_index in range(len(textSection)):
-#             try:    
-    
-#                 instruction = next(md.disasm(textSection[byte_index: byte_index+15 ], text_section_offset + byte_index ), None)
-#                 offset_inst[text_section_offset+byte_index] = instruction
-                
-#                 # if instruction:
-#                 #     print("%d:\t%s\t%s _\t%x" %(int(instruction.address), instruction.mnemonic, instruction.op_str, instruction.size))
-#                 # else:
-#                 #     print("%d:\t%s " % (text_section_offset + byte_index  , 'invalid instruction') )
-                    
-                
-    
-#             except Exception as e:
-#                 print(traceback.print_exc() )
-#                 print(e)
-    
-        
-#         offset_inst_dict = collections.OrderedDict(sorted(offset_inst.items()))
-    
-#         DATA_OFFSETS = find_data_in_textsection(ground_truth_offsets , text_section_offset , len(textSection) , offset_inst)
-    
-    
-        
-#         for byte_offset in range(text_section_offset, text_section_offset+len(textSection)):
-#             return_value = linear_sweep(offset_inst_dict ,  byte_offset )
-#             if return_value== None:
-#                 continue
-#             inst_seq, inst_addresses = return_value 
-#             ###################################################################
-#             ## number to words
-#             disassembly_decimal = replace_hex_with_decimal(inst_seq)
-    
-#             #num to words all
-#             numbers = [int(s) for s in re.findall(r'\b\d+\b', disassembly_decimal)]
-#             numbers = sorted(set(numbers) , reverse=True)
-#             number_word_dict = {}
-            
-#             for ix,n in enumerate(numbers):
-#                 number_word_dict[n] = len(numbers)-1 -ix
-    
-#             disassembly_num_to_words = replace_num_with_word(disassembly_decimal , number_word_dict)
-    
-            
-    
-    
-            
-#             ###########################################################################
-            
-            
-#             SEQUENCES.append(os.path.basename(bin_file_path)+"_"+str(byte_offset)+"_"+disassembly_num_to_words ) #os.path.basename(bin_file_path)+"_"+str(byte_offset)+"_"+
-#             if byte_offset in ground_truth_offsets:
-#                 LABELS.append(float(1))
-#             else:
-#                 LABELS.append(float(0))
-    
-    
-    
-    
-#     #Downsample 
-#     data = pd.DataFrame({"text": SEQUENCES, "label": LABELS})
-    
-#     # Split by label
-#     zeros = data[data["label"] == 0]
-#     ones = data[data["label"] == 1]
-    
-#     # Downsample zeros to 10%
-#     zeros_downsampled = zeros.sample(frac=0.1, random_state=42)
-    
-#     # Combine and shuffle
-#     balanced_data = pd.concat([zeros_downsampled, ones]).sample(frac=1, random_state=42)
-    
-#     # Extract final lists
-#     SEQUENCES = balanced_data["text"].tolist()
-#     LABELS = balanced_data["label"].tolist()
-    
-#     print(len(SEQUENCES) , len(LABELS))
-#     print(LABELS.count(0), LABELS.count(1))
-#     return SEQUENCES,LABELS
+    # Group sequences with their labels
+    for seq, label in zip(sequence_list, label_list):
+        data_dict[seq].append(label)
 
 
+    # Prepare cleaned lists
+    cleaned_sequences = []
+    cleaned_labels = []
+    
+    for seq, labels in data_dict.items():
+        # Always keep at least one occurrence
+        cleaned_sequences.append(seq)
+        cleaned_labels.append(labels[0])
 
-# In[8]:
+
+        # If duplicates exist, randomly select up to max_duplicates
+        extra_count = builtins.min( (len(labels) - 1), max_duplicates)
+        selected_labels = random.sample(labels[1:], extra_count) if len(labels) > 1 else []
+
+        # Append the selected duplicates
+        cleaned_sequences.extend([seq] * len(selected_labels))
+        cleaned_labels.extend(selected_labels)
+
+    return cleaned_sequences, cleaned_labels
 
 
 def process_bin_file(bin_file_path):
@@ -310,7 +224,7 @@ def process_bin_file(bin_file_path):
             
             ground_truth_offsets = get_ground_truth_ghidra(bin_file_path, text_section_offset, len(textSection))
     except Exception as e:
-        print("An error occurred:", e, bin_file_path)
+        # print("An error occurred:", e, bin_file_path)
         return [], []
     
     for byte_index in range(len(textSection)):
@@ -336,13 +250,20 @@ def process_bin_file(bin_file_path):
         disassembly_num_to_words = replace_num_with_word(disassembly_decimal, number_word_dict)
         
         # SEQUENCES.append(f"{os.path.basename(bin_file_path)}_{byte_offset}_{disassembly_num_to_words}")
-        SEQUENCES.append(disassembly_num_to_words)
-        LABELS.append(float(1) if byte_offset in ground_truth_offsets else float(0))
-    
+
+        if byte_offset not in ground_truth_offsets:
+            if random.random() < 0.321:
+                SEQUENCES.append(disassembly_num_to_words)
+                LABELS.append(float(0))
+        else:
+            SEQUENCES.append(disassembly_num_to_words)
+            LABELS.append(float(1))
+
+    SEQUENCES, LABELS = limit_duplicates(SEQUENCES, LABELS ,2)
     return SEQUENCES, LABELS
 
 def create_samples(bin_file_paths):
-    with mp.Pool(processes=180) as pool:
+    with mp.Pool(processes=140) as pool:
         results = pool.map_async(process_bin_file, bin_file_paths)
         pool.close()
         pool.join()
@@ -350,140 +271,37 @@ def create_samples(bin_file_paths):
     results = results.get()  
     SEQUENCES = [seq for result in results for seq in result[0]]
     LABELS = [label for result in results for label in result[1]]
+
+    SEQUENCES ,LABELS =  limit_duplicates(SEQUENCES ,LABELS ,200 )
     
     data = pd.DataFrame({"text": SEQUENCES, "label": LABELS})
-    zeros = data[data["label"] == 0].sample(frac=0.1, random_state=42)
+    zeros = data[data["label"] == 0].sample(frac=1, random_state=42)
     ones = data[data["label"] == 1]
-    balanced_data = pd.concat([zeros, ones]).sample(frac=1, random_state=42)
+    balanced_data = pd.concat([zeros, ones]).sample(frac=.321, random_state=42)
     
     SEQUENCES = balanced_data["text"].tolist()
     LABELS = balanced_data["label"].tolist()
 
     return SEQUENCES, LABELS
 
-
-# In[9]:
-
-
-# def process_bin_file(bin_file_path, results):
-#     SEQUENCES = []
-#     LABELS = []
-    
-#     md = Cs(CS_ARCH_X86, CS_MODE_64)
-#     md.detail = True
-#     offset_inst = {}
-    
-#     try:
-#         with open(bin_file_path, 'rb') as f:
-#             if BIN_FILE_TYPE == "ELF":
-#                 elffile = ELFFile(f)
-#                 textSection = elffile.get_section_by_name('.text').data()
-#                 text_section_offset = elffile.get_section_by_name('.text')['sh_offset']
-#             elif BIN_FILE_TYPE == "PE":
-#                 pe_file = lief.parse(bin_file_path)
-#                 text_section = pe_file.get_section(".text")
-#                 text_section_offset = text_section.pointerto_raw_data
-#                 textSection = bytes(text_section.content)
-            
-#             ground_truth_offsets = get_ground_truth_ghidra(bin_file_path, text_section_offset, len(textSection))
-#     except Exception as e:
-#         print("An error occurred:", e, bin_file_path)
-#         results.append(([], []))
-#         return
-    
-#     for byte_index in range(len(textSection)):
-#         try:
-#             instruction = next(md.disasm(textSection[byte_index: byte_index+15], text_section_offset + byte_index), None)
-#             offset_inst[text_section_offset + byte_index] = instruction
-#         except Exception as e:
-#             print(traceback.print_exc())
-#             print(e)
-    
-#     offset_inst_dict = collections.OrderedDict(sorted(offset_inst.items()))
-#     DATA_OFFSETS = find_data_in_textsection(ground_truth_offsets, text_section_offset, len(textSection), offset_inst)
-    
-#     for byte_offset in range(text_section_offset, text_section_offset + len(textSection)):
-#         return_value = linear_sweep(offset_inst_dict, byte_offset)
-#         if return_value is None:
-#             continue
-#         inst_seq, inst_addresses = return_value
-        
-#         disassembly_decimal = replace_hex_with_decimal(inst_seq)
-#         numbers = sorted(set(int(s) for s in re.findall(r'\b\d+\b', disassembly_decimal)), reverse=True)
-#         number_word_dict = {n: len(numbers) - 1 - ix for ix, n in enumerate(numbers)}
-#         disassembly_num_to_words = replace_num_with_word(disassembly_decimal, number_word_dict)
-        
-#         SEQUENCES.append( disassembly_num_to_words )#f"{os.path.basename(bin_file_path)}_{byte_offset}_{disassembly_num_to_words}")
-#         LABELS.append(float(1) if byte_offset in ground_truth_offsets else float(0))
-    
-#     results.append((SEQUENCES, LABELS))
-
-# def create_samples(bin_file_paths):
-#     threads = []
-#     results = []
-    
-#     for bin_file_path in bin_file_paths:
-#         thread = threading.Thread(target=process_bin_file, args=(bin_file_path, results))
-#         threads.append(thread)
-#         thread.start()
-    
-#     for thread in threads:
-#         thread.join()
-    
-#     SEQUENCES = [seq for result in results for seq in result[0]]
-#     LABELS = [label for result in results for label in result[1]]
-    
-#     data = pd.DataFrame({"text": SEQUENCES, "label": LABELS})
-#     zeros = data[data["label"] == 0].sample(frac=0.1, random_state=42)
-#     ones = data[data["label"] == 1]
-#     balanced_data = pd.concat([zeros, ones]).sample(frac=1, random_state=42)
-    
-#     SEQUENCES = balanced_data["text"].tolist()
-#     LABELS = balanced_data["label"].tolist()
-    
-#     print(len(SEQUENCES), len(LABELS))
-#     print(LABELS.count(0), LABELS.count(1))
-#     return SEQUENCES, LABELS
-
-
-# In[10]:
-
-
 train_bin_paths       = [ os.path.join(os.path.join(bin_path, f),f+'.exe' )  for f in train_bins]
 validation_bin_paths  = [ os.path.join(os.path.join(bin_path, f),f+'.exe' )  for f in test_bins ]
 train_sequences, train_labels = create_samples(train_bin_paths)
-print(len(train_sequences), len(train_labels) )
+print(len(train_sequences), len(train_labels) , train_labels.count(0), train_labels.count(1))
 validation_sequences, validation_labels  = create_samples(validation_bin_paths)
 print(len(validation_sequences), len(validation_labels) )
-
-
-# In[11]:
-
-
-pkl_data_save_path = MODEL_SAVE_PATH+'training_data_pe'+str(MAX_FILE_TO_USE)+'.ignore.pkl'
 with open(pkl_data_save_path , 'wb') as f:
     pickle.dump([train_sequences,train_labels,validation_sequences, validation_labels], f)
+
+
+# In[8]:
+
+
 with open(pkl_data_save_path, "rb") as f:
     train_sequences,train_labels,validation_sequences, validation_labels = pickle.load(f)
-print('saved '*1000)
-exit()
 
 
-# In[12]:
-
-
-for j in range(100):
-    if True:#'int3' in SEQUENCES[j]: #LABELS[j] :
-        print(train_labels[j] , ' > ' , train_sequences[j] ,'\n' )
-
-
-# In[ ]:
-
-
-
-
-
-# In[13]:
+# In[9]:
 
 
 import sys,os
@@ -491,10 +309,13 @@ import sys,os
 from transformers import BertTokenizer,BertForSequenceClassification
 
 # If using a character-level tokenizer for sequences like DNA/Protein:
-tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")#BertTokenizer.from_pretrained('bert-base-uncased')
 
+
+# tokenizer = AutoTokenizer.from_pretrained(TOKENIZER_SAVE_PATH)#BertTokenizer.from_pretrained('bert-base-uncased')
+
+tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 tokenizer = tokenizer.train_new_from_iterator(train_sequences, VOCAB_SIZE)
-
+tokenizer.save_pretrained(TOKENIZER_SAVE_PATH)
 
 # model = BertForSequenceClassification.from_pretrained(
 #     'bert-base-uncased',
@@ -502,7 +323,7 @@ tokenizer = tokenizer.train_new_from_iterator(train_sequences, VOCAB_SIZE)
 # )
 
 model = BertForSequenceClassification.from_pretrained(
-    MODEL_SAVE_PATH +EXPERIMENT_NAME,
+    MODEL_NAME,
     num_labels=1  
 )
 
@@ -514,7 +335,7 @@ optim = AdamW( model.parameters() , lr=1e-5, eps = 1e-6, betas=(0.9,0.98), weigh
 
 
 
-# In[14]:
+# In[10]:
 
 
 class BinaryDataset(torch.utils.data.Dataset):
@@ -536,7 +357,7 @@ class BinaryDataset(torch.utils.data.Dataset):
         return len(self.texts)
 
 
-# In[15]:
+# In[11]:
 
 
 # dataset = BinaryDataset(SEQUENCES, LABELS,tokenizer)
@@ -550,26 +371,26 @@ validation_dataset = BinaryDataset(validation_sequences, validation_labels,token
 # train_dataset, validation_dataset = torch.utils.data.random_split(dataset, [train_size, validation_size] , generator=torch.Generator().manual_seed(42))
 
 
-# In[16]:
+# In[12]:
 
 
 len(train_dataset) , len(validation_dataset)
 
 
-# In[17]:
+# In[13]:
 
 
-train_loader      = torch.utils.data.DataLoader(train_dataset, batch_size=BATCH_SIZE ,shuffle=False) 
-validation_loader = torch.utils.data.DataLoader(validation_dataset, batch_size=BATCH_SIZE, shuffle=False) 
+train_loader      = torch.utils.data.DataLoader(train_dataset, batch_size=BATCH_SIZE ,shuffle=True) 
+validation_loader = torch.utils.data.DataLoader(validation_dataset, batch_size=BATCH_SIZE, shuffle=False) #for presentation 
 
 
-# In[18]:
+# In[14]:
 
 
 model, optim, train_loader,validation_loader = accelerator.prepare(model, optim, train_loader,validation_loader)
 
 
-# In[19]:
+# In[15]:
 
 
 def training_loop(model ,data_loop, is_training = False):
@@ -631,7 +452,7 @@ def training_loop(model ,data_loop, is_training = False):
     return metrices , prediction_s, ground_truth_s
 
 
-# In[20]:
+# In[16]:
 
 
 EPOCHS = 100
@@ -643,11 +464,11 @@ v_global_metrices = []
 
 for ecpoch in range(EPOCHS):
     
-    # train_loop = tqdm(train_loader, leave=True)
-    # model.train()
-    # metrices,prediction_s, ground_truth_s  = training_loop(model ,train_loop, is_training = True)
-    # global_metrices.append(metrices)
-    # print("Training metrices ",metrices)
+    train_loop = tqdm(train_loader, leave=True)
+    model.train()
+    metrices,prediction_s, ground_truth_s  = training_loop(model ,train_loop, is_training = True)
+    global_metrices.append(metrices)
+    print("Training metrices ",metrices)
      
     with torch.no_grad():
         model.eval()
