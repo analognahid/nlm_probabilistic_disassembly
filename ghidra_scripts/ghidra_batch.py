@@ -21,9 +21,9 @@ import subprocess
 from subprocess import STDOUT, check_output
 
 
-BIN_PATH  = '/home/raisul/DATA/x86_O2_d4/'
+BIN_PATH  = '/home/raisul/DATA/temp/tinyc/'#'/home/raisul/DATA/tinyc/' 
 
-output_dir_path = '/home/raisul/ANALYSED_DATA/ghidra_x86_O2_d4/'
+output_dir_path = '/home/raisul/ANALYSED_DATA/ghidra_tinyc/'
 
 
 
