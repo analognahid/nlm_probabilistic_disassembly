@@ -126,7 +126,9 @@ def linear_sweep(offset_inst , target_offset):
 
 def process_bin_file(offset_inst_dict):
     SEQUENCES = []
+    SEQUENCE_OFFSETS = []
     OFFSETS = []
+    
 
     
     for byte_offset in offset_inst_dict:
@@ -135,16 +137,17 @@ def process_bin_file(offset_inst_dict):
             continue
         inst_seq, inst_addresses = return_value
         # print(inst_addresses)
-        if len(inst_addresses)<2:
-            continue
+        # if len(inst_addresses)<2:
+        #     continue
         disassembly_decimal = replace_hex_with_decimal(inst_seq)
         numbers = sorted(set(int(s) for s in re.findall(r'\b\d+\b', disassembly_decimal)), reverse=True)
         number_word_dict = {n: len(numbers) - 1 - ix for ix, n in enumerate(numbers)}
         disassembly_num_to_words = replace_num_with_word(disassembly_decimal, number_word_dict)
         SEQUENCES.append(disassembly_num_to_words)
+        SEQUENCE_OFFSETS.append(inst_addresses)
         OFFSETS.append(byte_offset)
 
-    return SEQUENCES, OFFSETS
+    return SEQUENCES, OFFSETS , SEQUENCE_OFFSETS
 
 
 
